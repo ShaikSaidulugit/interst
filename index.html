@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Of Interest Calculator</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #13084f;
+            color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        #container{
+            border: 2px solid white;
+            width: 75%;
+            height:100%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%)  translateY(-50%);
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+        }
+        #first{
+            width: 40%;
+            text-align: right;
+        }
+        #second{
+            width: 60%;
+            height: 80%;
+            background-color: #d0cfd4;
+            margin: 20px;
+            border-radius: 20px;
+        }
+        #first h1{
+            font-size: 40px;
+        }
+        #first p{
+            color: orange;
+        }
+        #second h1{
+            text-align: center;
+            margin-top: 20px;
+            color: #314da3;
+            margin-bottom: -10px;
+        }
+        #second #forms{
+            display: flex;
+            justify-content: center;
+        }
+        #forms{
+            color: black;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            height: 80%;
+            
+        }
+        #dates{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+        
+        }
+        #forms input[type='number']{
+            width: 350px;
+            height: 7vh;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            color: blue;
+        }
+        #forms input[type='number']:focus{
+            border: 2px solid orange;
+        }
+        #forms input[type='number']::placeholder{
+            font-size: larger;
+        }
+        #forms input[type='date']{
+            border: none;
+            outline: none;
+            height: 4vh;
+        }
+        #forms input[type='date']:focus{
+            border: 2px solid orange;
+        }
+        #forms input[type='button']{
+            width: 350px;
+            height: 7vh;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            background-color: #132c78;
+            color: white;
+            font-size: larger;
+            cursor: pointer;
+        }
+        #forms input[type='button']:focus{
+            border: 2px solid orange;
+        }
+        #forms input[type='button']:hover{
+            background-color: #051136;
+        }
+        #error,#error1,#error2,#error3{
+            color: red;
+            display: none;
+        }
+        #resulttext{
+            text-align: center;
+            color: #13084f;
+            padding: 2%;
+        }
+        #clr{
+            color: #e00404;
+        }
+        @media screen and (max-width:999px){
+            #container{
+        width: 100%;
+        height: 100%;
+    }
+    #first{
+        display:none;
+    }   
+    #second{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #forms input[type='button']{
+        width: 100%;
+    }
+    #forms input[type='number']{
+        width: 100%;
+        
+    }
+    #forms input[type='date']{
+        width: 95%;
+    }
+    #dates{
+        display: flex;
+        
+    }       
+        }
+@media screen and (max-width:500px){
+    #container{
+        width: 100%;
+        height: 100%;
+    }
+    #first{
+        display:none;
+    }   
+    #second{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #forms input[type='button']{
+        width: 350px;
+    }
+    #forms input[type='number']{
+        width: 100%;
+        
+    }
+    #forms input[type='date']{
+        width: 95%;
+    }
+    #dates{
+        display: flex;
+        
+    }
+}
+    </style>
+</head>
+<body>  
+<div id="container">
+        <div id="first">
+            <h1>Interest Calculator</h1>
+            <p>Interest makes your money work for you.</p>
+        </div>
+        <div id="second">
+            <h1>Perform a calculation here</h1>
+            <div id="forms">
+                <form>
+                    <label for="principle">Prinicple Amount<span style="color: red;">*</span></label><br>
+                    <input type="number" id="principle" placeholder="enter principle Amount">
+                    <br><span id="error">Please enter principle amount</span>
+                    <br><br>
+                    <label for="roi">Rate Of Interest<span style="color: red;">*</span></label><br>
+                    <input type="number" id="roi" placeholder="enter rate of interest">
+                    <br><span id="error1">Please enter rate of interest</span>
+                    <br><br>
+                    
+                    <div id="dates">
+                    <div id="from">
+                        <label for="fromdate">From Date<span style="color: red;">*</span></label><br>
+                    <input type="date" id="fromdate">
+                    <br><span id="error2">Please enter from date</span>
+                </div>
+                
+                <div id="to">
+                <label for="todate">To Date<span style="color: red;">*</span></label><br>
+                    <input type="date" id="todate">
+                    <br><span id="error3">Please enter to date</span>
+                </div>    
+                    </div>
+                    <br>
+                    <input type="button" value="calculate" id="calculate" onclick="Demo()">
+                </form>
+            </div>
+            <h4 id="resulttext"></h4>
+            
+        </div>
+</div>
+<script>
+const Demo=()=>{
+    
+    let firstamout=document.getElementById("principle").value
+    let interestrate=document.getElementById("roi").value
+    let firstdate=document.getElementById("fromdate").value
+    let seconddate=document.getElementById("todate").value
+    
+    let date1=new Date(firstdate)
+    let date2=new Date(seconddate)
+    let date=date2-date1
+    let resultdays=date/(1000*60*60*24)
+    
+    let totalamout=firstamout*interestrate/100/30
+    let resultamout=Math.round(totalamout)
+    
+    let final=resultdays*resultamout    
+
+    let final1=final.toLocaleString()
+    
+
+
+    
+
+
+    if(firstamout==''){
+        alert("Please Enter Priciple Amount")
+        document.getElementById("error").style.display='inline'
+        
+    }else if(interestrate==""){
+        alert("Please Enter Rate Of Interest")
+        document.getElementById("error1").style.display='inline'
+        
+    }else if(firstdate==""){
+        alert("Please Enter From Date")
+        document.getElementById("error2").style.display='inline'
+        
+    }else if(seconddate==""){
+        alert("Please Enter To Date")
+        document.getElementById("error3").style.display='inline'
+        
+    }else{
+        document.getElementById("resulttext").innerHTML="Your Total Interest ("+interestrate+"% of "+firstamout+" ) is "+"<span id='clr'>"+final1+"</span>"+" , it's been "+resultdays+" days since the date you took the principal amount."
+        document.getElementById("resulttext").focus
+    }
+
+}
+</script>
+</body>
+</html>
